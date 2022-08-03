@@ -1,6 +1,6 @@
 # Hudl Project Submission
 
-This repository contains a series of UI tests for the Login Page for Hudl's main site
+This repository contains a series of UI tests for the Login Page for Hudl's main site written using Python + Selenium with the help of virtual environments, package managers, and BDD scripts to drive high-level user behavior.
 
 ## Setup
 
@@ -27,7 +27,7 @@ This repository contains a series of UI tests for the Login Page for Hudl's main
 3. Change to the Automation directory inside hudl-project-submission: `cd Automation`
 
 
-3. Install Poetry
+4. Install Poetry
 
     https://python-poetry.org/docs/#installation
 
@@ -48,11 +48,13 @@ This repository contains a series of UI tests for the Login Page for Hudl's main
    * Verify that poetry is installed with `poetry --version`
    
 
-4. Create a new environment variable called `USER_PASS` with the desired password that will be used to perform the tests. 
+5. Create a new environment variable called `USER_PASS` with the desired password that will be used to perform the tests. 
     ```bash
     export USER_PASS
      ```
    * This will override the default USER_PASS value when running the make target in the next step
+   
+   You can also directly replace the .env variables with your own if the email and password are known and can skip this step
 
 
 6. Run the following in the project directory:
@@ -69,11 +71,11 @@ This repository contains a series of UI tests for the Login Page for Hudl's main
 
 I'm using [environs](https://github.com/sloria/environs) to read the env file.
 
-General configuration information is in `.env` 
+General configuration information is in `.env`.
 
-To run the tests, ensure the EMAIL parameter is either the provided with the given test account email, or feel free to subsitute your own.
+To run the tests, ensure the EMAIL parameter is either the provided given test account email, or feel free to subsitute your own.
 
-For security reasons, no passwords are included with the repo in it's current for. Feel free to replace these values with a known test account or email the author (aidanrubenstein@gmail.com) for the password to the test account.
+For security reasons, no passwords are included with the repo in it's current for. You may replace these values with a known test account or email the author (aidanrubenstein@gmail.com) for the password to the test account.
 
 ### Pytest
 
@@ -81,14 +83,14 @@ Run full test suite:
 `poetry run pytest tests -vvv`
 
 Run a specific test class:
-`poetry run pytest test/<specific test>`
+`poetry run pytest tests/<specific test>`
 
-Example: `poetry run pytest test/test_login.py`. 
+Example: `poetry run pytest tests/test_login.py`. 
 
 Run a single test case within a file:
-`poetry run pytest test/<specific test> -k "test_function_name"`
+`poetry run pytest tests/<specific test>::test_function_name`
 
-Example: `poetry run pytest test/test_login.py -k "test_view_password_reset"`
+Example: `poetry run pytest tests/test_login.py::test_view_password_reset`
 
 ### BDD
 
@@ -98,22 +100,27 @@ Please [check here](https://pytest-bdd.readthedocs.io/en/stable/) for more detai
 ### Code Structure
 
 `page_objects/` Contains the page-object model for pages throughout the Hudl UI. Each page object model should accept
-the page fixture where it will perform UI-based test functions
+the page fixture where it will perform UI-based test functions.
 
-`tests/` Contains tests that will be run. Each file should test a feature within the target site
+`tests/` Contains tests that will be run. Each file should test a feature within the target site.
 
 `test/conftest.py` This script is run before the tests using 'pytest magic'. This loads the appropriate env files & uses the function `pytest_generate_tests` to inject values in the tests
 (with the BDD tests this only interacts with the functions tagged with `@scenario`). 
+
+`features/` Contains the feature files which are written in Gherkin and define high-level behavior which drives the automated tests.
+
+`util/` Includes utility helper classes for environment setup.
 
 ### Testing Items & Utilities I Would Include if Time and Resources were Unlimited
 
 (in no particular order):
 
 * Containerization of the testing suite using a Dockerfile in order to avoid installation issues and possible flakiness across multiple operating systems.
-* Testing including multiple browser drivers such as Firefox and Edge
-  * Possibly using Browserstack to emulate mobile devices such as iOS and Android as well
+* Testing including multiple browser drivers such as Firefox and Edge.
+  * Possibly using Browserstack to emulate mobile devices such as iOS and Android as well.
 * Change password functionality once logged in, and then logging out/back in with the new password.
-* A more full E2E test scenario for resetting a password with an email recovery
-* Performance/loadtesting with several users attempting to login at once
-* Parallelization of tests using Selenium Grid
+* A more full E2E test scenario for resetting a password with an email recovery.
+    * Ideally this would be resetting the password via email, following new password creation steps, and logging in with the new password.
+* Performance/loadtesting with several users attempting to login at once.
+* Parallelization of tests using Selenium Grid.
 

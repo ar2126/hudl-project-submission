@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "Automation"
+version = "0.1.0"
+description = ""
+authors = ["Aidan Rubenstein <aidanrubenstein@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+pytest-selenium = "^2.0.1"
+pytest-bdd = "^6.0.1"
+environs = "^9.5.0"
+webdriver-manager = "^3.8.3"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
