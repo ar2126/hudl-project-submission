@@ -73,9 +73,9 @@ I'm using [environs](https://github.com/sloria/environs) to read the env file.
 
 General configuration information is in `.env`.
 
-To run the tests, ensure the EMAIL parameter is either the provided given test account email, or feel free to subsitute your own.
+To run the tests, ensure the EMAIL parameter is either the provided test account email, or feel free to subsitute your own.
 
-For security reasons, no passwords are included with the repo in it's current for. You may replace these values with a known test account or email the author (aidanrubenstein@gmail.com) for the password to the test account.
+For security reasons, no passwords are included with the repo in it's current for. You may replace the PASSWORD field with a known test account password or email the author (aidanrubenstein@gmail.com) for the password to the test account.
 
 ### Pytest
 
